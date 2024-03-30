@@ -95,8 +95,11 @@ func TestCodecParameters(t *testing.T) {
 	require.Equal(t, 4, cp6.SampleRate())
 	cp6.SetWidth(2)
 	require.Equal(t, 2, cp6.Width())
-
 	extraBytes := []byte{0, 0, 0, 1}
 	require.NoError(t, cp6.SetExtraData(extraBytes))
 	require.Equal(t, extraBytes, cp6.ExtraData())
+	b := []byte("test")
+	sd := cp6.SideData()
+	require.NoError(t, sd.Add(PacketSideDataTypeDisplaymatrix, b))
+	require.Equal(t, b, sd.Get(PacketSideDataTypeDisplaymatrix))
 }

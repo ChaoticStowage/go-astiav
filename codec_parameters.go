@@ -176,6 +176,10 @@ func (cp *CodecParameters) SetExtraData(extraData []byte) error {
 	return nil
 }
 
+func (cp *CodecParameters) SideData() *PacketSideData {
+	return newPacketSideDataFromC(&cp.c.coded_side_data, &cp.c.nb_coded_side_data)
+}
+
 func (cp *CodecParameters) SampleFormat() SampleFormat {
 	return SampleFormat(cp.c.format)
 }
